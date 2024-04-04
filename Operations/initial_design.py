@@ -9,10 +9,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.OUT)
 
 # Setup for database
-db_connection = sqlite3.connect("database.db")
-cursor = db_connection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS track(timestamp TEXT, state TEXT, data TEXT, message TEXT)")
-db_connection.commit()
+# db_connection = sqlite3.connect("database.db")
+# cursor = db_connection.cursor()
+# cursor.execute("CREATE TABLE IF NOT EXISTS track(timestamp TEXT, state TEXT, data TEXT, message TEXT)")
+# db_connection.commit()
 
 def capture_image():
     timestamp = time.strftime("%m/%d/%Y:%H:%M:%S")
@@ -23,8 +23,8 @@ def capture_image():
 def store_image(state, image_path, timestamp):
     message = "Store image"
     cv2.imwrite(image_path, cv2.imread(image_path), [int(cv2.IMWRITE_JPEG_QUALITY), 80])
-    cursor.execute("INSERT INTO track(timestamp, state, data, message) VALUES (?, ?, ?)", (timestamp, state, image_path, message))
-    db_connection.commit()
+    # cursor.execute("INSERT INTO track(timestamp, state, data, message) VALUES (?, ?, ?)", (timestamp, state, image_path, message))
+    # db_connection.commit()
     return image_path
 
 # FSM
@@ -34,7 +34,7 @@ try:
         image_path, timestamp = capture_image()
         target = closest_target_detected(image_path)
         if state == "S1":
-            if target is None:
+            if target is not None:
                 state = "S2"
         
         elif state == "S2":

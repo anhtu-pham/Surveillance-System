@@ -18,5 +18,5 @@ def is_target_closer(target_prev, target):
 def is_target_farther(target_prev, target):
 	return area(target) > area(target_prev)
 	
-def is_target_too_close(target, tolerance):
-	return area(target) > tolerance
+def is_target_too_close(target, limit):
+	return area(target) > limit

@@ -24,10 +24,12 @@ is_video_captured = False
 image_path = None
 target = None
 target_prev = None
+
+tolerance_threshold = 10
+undetected_count = 0
+
 try:
-    i = 0
-    while i <= 5:
-        i += 1
+    while True:
         
         timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
         
@@ -43,9 +45,16 @@ try:
                     state = "S2"
             elif state == "S2":
                 if target is None:
-                    continue
-                elif is_target_closer(target_prev, target) and is_target_too_close(target, 5):
-                    state = "S3"
+                    undetected_count += 1
+                    if undetected_count > tolerance_threshold:
+                        state = "S1"
+                        undetected_count = 0
+                    else:
+                        continue
+                else:
+                    undetected_count = 0
+                    if is_target_closer(target_prev, target) and is_target_too_close(target, 5):
+                        state = "S3"
             elif state == "S3":
                 if target is None:
                     continue

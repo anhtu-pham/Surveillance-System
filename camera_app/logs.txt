@@ -1,0 +1,28 @@
+ 04-08-2024,04:14:56: Target detected.
+ 04-08-2024,04:15:12: Target detected.
+ 04-08-2024,04:30:12: Target detected.
+ 04-08-2024,04:30:18: Target detected.
+ 04-08-2024,04:33:01: Target detected.
+ 04-08-2024,04:33:07: Target detected.
+ 04-08-2024,04:33:12: Target approaching the warehouse.
+ 04-08-2024,04:33:17: Target detected.
+ 04-08-2024,04:33:22: Target detected.
+ 04-08-2024,04:33:27: Target detected.
+ 04-08-2024,04:38:03: Target detected.
+ 04-08-2024,04:38:14: Target detected.
+ 04-08-2024,04:39:09: Target detected.
+ 04-08-2024,04:39:26: Target detected.
+ 04-08-2024,04:40:14: Target detected.
+ 04-08-2024,04:40:36: Target detected.
+ 04-08-2024,04:40:41: Target approaching the warehouse.
+ 04-08-2024,05:38:00: Target detected.
+ 04-08-2024,05:38:05: Target approaching the warehouse.
+ 04-08-2024,05:38:10: Target detected.
+ 04-08-2024,05:40:51: Target detected.
+ 04-08-2024,05:41:18: Target detected.
+ 04-08-2024,05:43:00: Target detected.
+ 04-08-2024,05:53:24: Target detected.
+ 04-08-2024,05:53:29: Target approaching the warehouse.
+ 04-08-2024,05:53:37: Suspicious target. Alarm!
+ 04-08-2024,05:53:48: Suspicious target. Alarm!
+ 

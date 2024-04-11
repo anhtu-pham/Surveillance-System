@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page - Surveillance System</title>
+</head>
+<body>
+    <header>
+        <h1>Low-cost Surveillance System</h1>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </header>
+    
+    <h3>Options:</h3>
+    <ul>
+        <li><a href="{{ url_for('take_picture') }}">Take and display a new picture</a></li>
+        <li><a href="{{ url_for('take_video') }}">Take and display a new 5 seconds video</a></li>
+        <li><a href="{{ url_for('logs') }}">Read last Logs</a></li>
+        <!-- Placeholder buttons for other options -->
+        <li><button onclick="alert('Function not implemented yet.');">Turn Off the system</button></li>
+        <li><button onclick="alert('Function not implemented yet.');">Restore the system</button></li>
+        <li><button onclick="alert('Function not implemented yet.');">Retrieve last video record</button></li>
+    </ul>
+</body>
+</html>

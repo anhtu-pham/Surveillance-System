@@ -44,24 +44,35 @@ try:
                 if target is not None:
                     state = "S2"
             elif state == "S2":
-                if target is None:
+                if target is None: # target currently not detected
                     undetected_count += 1
+                    # decision on no target detected for certain times
                     if undetected_count > tolerance_threshold:
                         state = "S1"
                         undetected_count = 0
+                    # can have further detections before decision
                     else:
                         continue
-                else:
+                else: # target detected
                     undetected_count = 0
                     if is_target_closer(target_prev, target) and is_target_too_close(target, 5):
                         state = "S3"
             elif state == "S3":
-                if target is None:
-                    continue
-                elif is_target_farther(target_prev, target):
-                    state = "S2"
-                elif is_target_too_close(target, 20):
-                    state = "S4"
+                if target is None: # target currently not detected
+                    undetected_count += 1
+                    # decision on no target detected for certain times
+                    if undetected_count > tolerance_threshold:
+                        state = "S2"
+                        undetected_count = 0
+                    # can have further detections before decision
+                    else:
+                        continue
+                else: # target detected
+                    undetected_count = 0
+                    if is_target_farther(target_prev, target):
+                        state = "S2"
+                    elif is_target_too_close(target, 20):
+                        state = "S4"
             else:
                 pass
             target_prev = target if target is not None else target_prev

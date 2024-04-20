@@ -2,22 +2,112 @@
 <html>
 <head>
     <title>Main Page - Surveillance System</title>
+    <style>
+        body {
+            background-color: #ecf9fa;
+            text-align: center;
+        }
+        #header-container {
+            position: relative;
+            height: 300px;
+        }
+        #header-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #header-title {
+            position: absolute;
+            top: 66%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #2f3d79;
+        }
+        header {
+            background-color: #2f3d79;
+            padding: 10px 0;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .logout {
+            background-color: #2f3d79;
+            color: white;
+            padding: 5px 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .box {
+            width: 200px;
+            height: 150px;
+            background-color: #2f3d79;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box a, .box button {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            flex-grow: 1;
+        }
+        .box button {
+            background-color: #2f3d79; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* Remove button border */
+            padding: 10px 20px; /* Button padding */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+    </style>
 </head>
 <body>
+    <div id="header-container">
+        <img id="header-image" src="cwru.png" alt="CWRU Image">
+        <h1 id="header-title">Low-cost Surveillance System</h1>
+    </div>
+
     <header>
-        <h1>Low-cost Surveillance System</h1>
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
     </header>
-    
-    <h3>Options:</h3>
-    <ul>
-        <li><a href="{{ url_for('take_picture') }}">Take and display a new picture</a></li>
-        <li><a href="{{ url_for('take_video') }}">Take and display a new 5 seconds video</a></li>
-        <li><a href="{{ url_for('logs') }}">Read last Logs</a></li>
-        <!-- Placeholder buttons for other options -->
-        <li><button onclick="alert('Function not implemented yet.');">Turn Off the system</button></li>
-        <li><button onclick="alert('Function not implemented yet.');">Restore the system</button></li>
-        <li><button onclick="alert('Function not implemented yet.');">Retrieve last video record</button></li>
-    </ul>
+
+    <div class="box-container">
+        <div class="box">
+            <a href="{{ url_for('take_picture') }}">Take and display a new picture</a>
+        </div>
+        <div class="box">
+            <a href="{{ url_for('take_video') }}">Take and display a new 5 seconds video</a>
+        </div>
+        <div class="box">
+            <a href="{{ url_for('logs') }}">Read last Logs</a>
+        </div>
+        <!-- Placeholder button for turning off the system -->
+        <div class="box">
+            <button onclick="alert('Function not implemented yet.');">Turn Off the system</button>
+        </div>
+        <!-- Placeholder button for restoring the system -->
+        <div class="box">
+            <button onclick="alert('Function not implemented yet.');">Restore the system</button>
+        </div>
+        <!-- Placeholder button for retrieving last video record -->
+        <div class="box">
+            <button onclick="alert('Function not implemented yet.');">Retrieve last video record</button>
+        </div>
+    </div>
 </body>
 </html>

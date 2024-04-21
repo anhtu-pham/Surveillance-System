@@ -4,7 +4,6 @@ import subprocess
 import os
 import time
 from general_functionalities import capture_image, capture_video
-from driver import camera, encoder
 
 app = Flask(__name__)
 app.secret_key = 'very_secret_key_here'

@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 from picamera2 import Picamera2
 from picamera2.encoders import MJPEGEncoder
-from camera_app.src.general_functionalities import capture_image, compress_image, remove_image, capture_video, write_log, manual_reset
-from camera_app.src.target_tracking import target_detected, is_target_closer, is_target_farther, is_target_too_close
+from general_functionalities import capture_image, compress_image, remove_image, capture_video, write_log, manual_reset
+from target_tracking import target_detected, is_target_closer, is_target_farther, is_target_too_close
 import keyboard
 
 # Setup for GPIO

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 import subprocess
 import os
+import time
 from general_functionalities import capture_image, capture_video
 
 app = Flask(__name__)
@@ -51,7 +52,7 @@ def logs():
     filepath = '../logs.txt'
     if os.path.exists(filepath):
         with open(filepath, 'r') as f:
-            content = f.readlines()[-5:]
+            content = f.readlines()[-10:]
             print(content)
 
 
@@ -59,24 +60,19 @@ def logs():
         content = ['No logs found']
     return render_template('logs.html', logs=content)
 
-
-def capture_img():
-    subprocess.run(["libcamera-still", "-o", "../images/photo.jpg"])
-
-def capture_vid():
-    subprocess.run(["libcamera-vid", "-o", "../videos/video.h264", "-t", "5000"])
-
 @app.route('/take_picture')
 @login_required
 def take_picture():
-    capture_image()
-    return send_file("../images/photo.jpg", mimetype='image/jpeg')
+    timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
+    image_path = capture_image(driver.camera, timestamp)
+    return send_file(image_path, mimetype='image/jpeg')
 
 @app.route('/take_video')
 @login_required
 def take_video():
-    capture_video()
-    return send_file("../videos/video.h264", mimetype='video/h264')
+    timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
+    video_path = capture_video(driver.camera, driver.encoder, timestamp, 5)
+    return send_file(video_path, mimetype='video/mpeg')
 
 if __name__ == '__main__':
     app.run(debug=True)

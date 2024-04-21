@@ -4,6 +4,7 @@ import subprocess
 import os
 import time
 from general_functionalities import capture_image, capture_video
+from driver import camera, encoder
 
 app = Flask(__name__)
 app.secret_key = 'very_secret_key_here'
@@ -64,14 +65,14 @@ def logs():
 @login_required
 def take_picture():
     timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
-    image_path = capture_image(driver.camera, timestamp)
+    image_path = capture_image(camera, timestamp)
     return send_file(image_path, mimetype='image/jpeg')
 
 @app.route('/take_video')
 @login_required
 def take_video():
     timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
-    video_path = capture_video(driver.camera, driver.encoder, timestamp, 5)
+    video_path = capture_video(camera, encoder, timestamp, 5)
     return send_file(video_path, mimetype='video/mpeg')
 
 if __name__ == '__main__':

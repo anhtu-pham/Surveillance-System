@@ -88,25 +88,19 @@
 
     <div class="box-container">
         <div class="box">
-            <a href="{{ url_for('take_picture') }}">Take and display a new picture</a>
+            <a href="{{ url_for('take_picture') }}">Display the last stored image</a>
         </div>
         <div class="box">
-            <a href="{{ url_for('take_video') }}">Take and display a new 5 seconds video</a>
+            <a href="{{ url_for('take_video') }}">Display the last stored video</a>
         </div>
         <div class="box">
             <a href="{{ url_for('logs') }}">Read last Logs</a>
         </div>
-        <!-- Placeholder button for turning off the system -->
         <div class="box">
             <button onclick="alert('Function not implemented yet.');">Turn Off the system</button>
         </div>
-        <!-- Placeholder button for restoring the system -->
         <div class="box">
             <button onclick="alert('Function not implemented yet.');">Restore the system</button>
-        </div>
-        <!-- Placeholder button for retrieving last video record -->
-        <div class="box">
-            <button onclick="alert('Function not implemented yet.');">Retrieve last video record</button>
         </div>
     </div>
 </body>

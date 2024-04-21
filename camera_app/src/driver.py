@@ -1,17 +1,18 @@
 import RPi.GPIO as GPIO
+from gpiozero import Button
 import time
 from picamera2 import Picamera2
 from picamera2.encoders import MJPEGEncoder
 from general_functionalities import capture_image, compress_image, remove_image, capture_video, write_log
 from target_tracking import target_detected, is_target_closer, is_target_farther, is_target_too_close
-import keyboard
 
 # Setup for GPIO
 BUZZER_PIN = 21
-MANUAL_RESET_PIN = 12
+MANUAL_RESET_PIN = 20
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUZZER_PIN, GPIO.OUT)
-GPIO.setup(MANUAL_RESET_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.output(BUZZER_PIN, GPIO.LOW)
+button = Button(MANUAL_RESET_PIN)
 
 # Setup for camera and encoder
 camera = Picamera2()
@@ -30,19 +31,19 @@ undetected_count = 0
 farther_threshold = 10
 farther_count = 0
         
-def on_key_event(event):
-    global state
-    if event.name == 'r' and state == "S4":
-        timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
-        write_log("../logs.txt", timestamp + ": User performed manual reset by pressing R!")
+def when_pressed():
+    global state, is_video_captured
+    if state == "S4":
+        timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
+        write_log("../logs.txt", timestamp + ": User performed manual reset!")
         state = "S1"
         is_video_captured = False
 
-keyboard.on_press(on_key_event)
+button.when_pressed = when_pressed
 
 while True:
         
-    timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
+    timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
         
     if state != "S4":
             # pass
@@ -115,9 +116,9 @@ while True:
         if not is_video_captured:
             capture_video(camera, encoder, timestamp, 5)
             is_video_captured = True
-        GPIO.output(21, GPIO.HIGH)
+        GPIO.output(BUZZER_PIN, GPIO.HIGH)
         time.sleep(0.5)
-        GPIO.output(21, GPIO.LOW)
+        GPIO.output(BUZZER_PIN, GPIO.LOW)
         time.sleep(0.5)
     else:
         pass

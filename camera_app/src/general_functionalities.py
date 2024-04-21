@@ -4,7 +4,7 @@ import os
 import cv2
 
 def capture_image(camera, timestamp):
-    image_path = "/media/ecse488-7/ESD-ISO/images/" + timestamp + ".jpg"
+    image_path = "/media/ecse488-7/488_group7/images/" + timestamp + ".jpg"
     camera.capture_file(image_path)
     return image_path
     
@@ -18,10 +18,11 @@ def remove_image(image_path):
         print("Image " + image_path + " removed")
         
 def capture_video(camera, encoder, timestamp, duration):
-    video_path = "/media/ecse488-7/ESD-ISO/videos/" + timestamp + ".mpg"
+    video_path = "/media/ecse488-7/488_group7/videos/" + timestamp + ".mpg"
     camera.start_recording(encoder, video_path)
     time.sleep(duration)
     camera.stop_recording()
+    camera.start()
     return video_path, timestamp
     
 def write_log(file_path, log):

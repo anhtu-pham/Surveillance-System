@@ -64,14 +64,14 @@ def logs():
 @app.route('/take_picture')
 @login_required
 def take_picture():
-    timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
+    timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
     image_path = capture_image(camera, timestamp)
     return send_file(image_path, mimetype='image/jpeg')
 
 @app.route('/take_video')
 @login_required
 def take_video():
-    timestamp = time.strftime("%m-%d-%Y,%H:%M:%S")
+    timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
     video_path = capture_video(camera, encoder, timestamp, 5)
     return send_file(video_path, mimetype='video/mpeg')
 

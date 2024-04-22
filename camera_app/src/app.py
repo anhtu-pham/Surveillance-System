@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
-import subprocess
 import os
 import time
+import glob
 from general_functionalities import capture_image, capture_video
 
 app = Flask(__name__)
@@ -48,14 +48,10 @@ def main():
 @app.route('/logs')
 @login_required
 def logs():
-
     filepath = '../logs.txt'
     if os.path.exists(filepath):
         with open(filepath, 'r') as f:
             content = f.readlines()[-10:]
-            print(content)
-
-
     else:
         content = ['No logs found']
     return render_template('logs.html', logs=content)
@@ -63,16 +59,22 @@ def logs():
 @app.route('/take_picture')
 @login_required
 def take_picture():
-    timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
-    image_path = capture_image(camera, timestamp)
-    return send_file(image_path, mimetype='image/jpeg')
+    image_folder = '/media/ecse488-7/488_group7/images'
+    list_of_files = glob.glob(f'{image_folder}/*.jpg')  # Assuming the images are in jpg format
+    if not list_of_files:
+        return "No images found"
+    latest_image = max(list_of_files, key=os.path.getctime)
+    return send_file(latest_image, mimetype='image/jpeg')
 
 @app.route('/take_video')
 @login_required
 def take_video():
-    timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
-    video_path = capture_video(camera, encoder, timestamp, 5)
-    return send_file(video_path, mimetype='video/mpeg')
+    video_folder = '/media/ecse488-7/488_group7/videos'
+    list_of_files = glob.glob(f'{video_folder}/*.mpg')  # Adjusted to .mpg file extension
+    if not list_of_files:
+        return "No videos found"
+    latest_video = max(list_of_files, key=os.path.getctime)
+    return send_file(latest_video, mimetype='video/mpeg')  # Corrected MIME type for MPG
 
 if __name__ == '__main__':
     app.run(debug=True)

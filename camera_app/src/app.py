@@ -76,5 +76,20 @@ def take_video():
     latest_video = max(list_of_files, key=os.path.getctime)
     return send_file(latest_video, mimetype='video/mpeg')  # Corrected MIME type for MPG
 
+@app.route('/turn_off', methods=['POST'])
+@login_required
+def turn_off():
+    os.system("supervisorctl stop driver")
+    return redirect(url_for('main'))
+
+@app.route('/restart', methods=['POST'])
+@login_required
+def restart():
+    os.system("supervisorctl restart driver")
+    return redirect(url_for('main'))
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

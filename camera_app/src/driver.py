@@ -3,18 +3,30 @@ from gpiozero import Button
 import time
 from picamera2 import Picamera2
 from picamera2.encoders import MJPEGEncoder
-from general_functionalities import capture_image, compress_image, remove_image, capture_video, write_log
+from general_functionalities import use_camera, capture_image, compress_image, remove_image, capture_video, write_log
 from target_tracking import target_detected, is_target_closer, is_target_farther, is_target_too_close
+# import os
 
 # Setup for GPIO
 BUZZER_PIN = 21
 MANUAL_RESET_PIN = 20
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
+
+# Buzzer
 GPIO.setup(BUZZER_PIN, GPIO.OUT)
 GPIO.output(BUZZER_PIN, GPIO.LOW)
+
+# Multiple cameras
+GPIO.setup(4, GPIO.OUT)
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+
+# Manual reset button
 button = Button(MANUAL_RESET_PIN)
 
-# Setup for camera and encoder
+
+# Setup for camera
 camera = Picamera2()
 camera.start()
 encoder = MJPEGEncoder()
@@ -30,7 +42,8 @@ tolerance_threshold = 10
 undetected_count = 0
 farther_threshold = 10
 farther_count = 0
-        
+current_camera_index = 0
+
 def when_pressed():
     global state, is_video_captured
     if state == "S4":
@@ -40,22 +53,19 @@ def when_pressed():
         is_video_captured = False
 
 button.when_pressed = when_pressed
-
+use_camera(current_camera_index)
 while True:
-        
+
     timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
-        
+
     if state != "S4":
-            # pass
-            # if global_var.manual_reset:
-            #    state = "S1"
-            #    is_video_captured = False
-            #    global_var.manual_reset = False
-    # else:
-        image_path = capture_image(camera, timestamp)
+        image_path = capture_image(camera, current_camera_index, timestamp)
         target = target_detected(image_path)
         if state == "S1":
-            if target is not None:
+            if target is None:
+                current_camera_index = 1 - current_camera_index
+                use_camera(current_camera_index)
+            else:
                 state = "S2"
         elif state == "S2":
             if target is None: # target currently not detected
@@ -96,25 +106,25 @@ while True:
         else:
             pass
         target_prev = target if target is not None else target_prev
-        
+
     if state == "S1":
         remove_image(image_path)
         time.sleep(1)
     elif state == "S2":
-        write_log("../logs.txt", timestamp + ": Target detected.")
+        write_log("../logs.txt", timestamp + ": Target detected by camera " + str(current_camera_index) + ".")
         print(image_path + ": Target detected at coordinates " + str(target))
         compress_image(image_path, 60)
         time.sleep(0.5)
     elif state == "S3":
-        write_log("../logs.txt", timestamp + ": Target approaching the warehouse.")
+        write_log("../logs.txt", timestamp + ": Target approaching the warehouse as recognized by camera " + str(current_camera_index) + ".")
         print(image_path + ": Approaching target at coordinates " + str(target))
         compress_image(image_path, 80)
         time.sleep(0.125)
     elif state == "S4":
-        write_log("../logs.txt", timestamp + ": Suspicious target. Alarm!")
+        write_log("../logs.txt", timestamp + ": Suspicious target as recognized by camera " + str(current_camera_index) + ". Alarm!")
         print(image_path + ": Suspicious target at coordinates " + str(target))
         if not is_video_captured:
-            capture_video(camera, encoder, timestamp, 5)
+            capture_video(camera, current_camera_index, encoder, timestamp, 5)
             is_video_captured = True
         GPIO.output(BUZZER_PIN, GPIO.HIGH)
         time.sleep(0.5)

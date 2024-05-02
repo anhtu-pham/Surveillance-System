@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Surveillance System</title>
+    <style>
+        body {
+            background-color: #ecf9fa;
+            text-align: center;
+        }
+        header {
+            background-color: #2f3d79;
+            color: white;
+            padding: 20px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .subtitle {
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+        form {
+            margin-top: 50px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #2f3d79;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1f2c59;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Low-cost Surveillance System</h1>
+        <div class="subtitle">ECSE 488 - Group #7</div>
+    </header>
+    
+    <form action="" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

@@ -11,7 +11,7 @@ Follow the below instructions to ensure that the system runs correctly.
 The setup of the Raspberry Pi board will require working operating system to be installed in the microSD card to plug in the board. The Raspberry Pi OS for setup of the Raspberry Pi board can be facilitated by the Raspberry Pi Imager, a tool that simplifies the OS installation process on the microSD card. This software supports various OS options, but you can primarily use Raspberry Pi OS for its lightweight nature and robust support.
 
 Insert the SD card into the Micro SD Card slot in the Raspberry Pi board, then perform the setup for the system as shown in the following picture:
-<!-- Setup image here -->
+![System Setup](https://github.com/anhtu-pham/Surveillance-System/blob/main/assets/system_setup.jpg)
 
 Use the HDMI cable to connect to the monitor, connect the mouse and keyboard to the Raspberry Pi board, power up the Raspberry Pi board, then turn on the monitor.
 

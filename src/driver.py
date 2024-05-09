@@ -47,6 +47,7 @@ current_camera_index = 0
 is_from_state_1 = False
 color = None
 
+# run when button is pressed and current state is S4
 def when_pressed():
     global state, is_video_captured
     if state == "S4":
@@ -58,12 +59,13 @@ def when_pressed():
 button.when_pressed = when_pressed
 use_camera(current_camera_index)
 while True:
-        
+    
     timestamp = time.strftime("%m-%d-%Y_%H-%M-%S")
     image_path = capture_image(camera, current_camera_index, timestamp)
     image = cv2.imread(image_path)
     target = target_detected(image)
 
+    # State transitions
     if state == "S1":
 
         if target is None:
@@ -77,7 +79,7 @@ while True:
         if is_from_state_1:
             cv2.namedWindow("Real Time Image Display", cv2.WINDOW_NORMAL)
             is_from_state_1 = False
-        
+
         if state == "S2":
             if target is None: # target currently not detected
                 undetected_count += 1
@@ -117,25 +119,30 @@ while True:
         else:
             pass
     target_prev = target if target is not None else target_prev
-        
+    
+    # States' functionalities
     if state == "S1":
+        # Remove unnecessary image
         remove_image(image_path)
         print("Safe state with camera " + str(current_camera_index) + ".")
         time.sleep(0.2)
     else:
         if state == "S2":
+            # In state S2, system takes low frame rate of images captured, stores images with low resolution, and writes log
             color = (255, 0, 0)
             write_log("../logs.txt", timestamp + ": Target detected by camera " + str(current_camera_index) + ".")
             print(timestamp + ": Target detected by camera " + str(current_camera_index) + ".")
             compress_image(image_path, 60)
             time.sleep(0.1)
         elif state == "S3":
+            # In state S2, system takes low frame rate of images captured, stores images with low resolution, and writes log
             color = (0, 255, 255)
             write_log("../logs.txt", timestamp + ": Target approaching the warehouse as recognized by camera " + str(current_camera_index) + ".")
             print(timestamp + ": Target approaching the warehouse as recognized by camera " + str(current_camera_index) + ".")
             compress_image(image_path, 80)
             time.sleep(0.05)
         elif state == "S4":
+            # In state S3, system captures, stores video, and activates alarm
             color = (0, 0, 255)
             write_log("../logs.txt", timestamp + ": Suspicious target as recognized by camera " + str(current_camera_index) + ". Alarm!")
             print(timestamp + ": Suspicious target as recognized by camera " + str(current_camera_index) + ". Alarm!")
@@ -148,6 +155,8 @@ while True:
             time.sleep(0.1)
         else:
             continue
+
+        # Show real time display of the target
         if target is not None:
             (x, y, w, h) = target
             cv2.rectangle(image, (x, y), (x+w, y+h), color, 2)

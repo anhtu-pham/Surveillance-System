@@ -17,10 +17,12 @@ class User(UserMixin):
     username = '488team7'
     password = '488team7'
 
+# load user with corresponding ID
 @login_manager.user_loader
 def load_user(user_id):
     return User() if int(user_id) == User.id else None
 
+# login for authentication functionality
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -34,17 +36,20 @@ def login():
             return 'Invalid username or password'
     return render_template('index.html')
 
+# logout for authentication functionality
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+# main page
 @app.route('/main')
 @login_required
 def main():
     return render_template('main.html')
 
+# for logging messages
 @app.route('/logs')
 @login_required
 def logs():
@@ -56,6 +61,7 @@ def logs():
         content = ['No logs found']
     return render_template('logs.html', logs=content)
 
+# for retrieval of last image stored
 @app.route('/take_picture')
 @login_required
 def take_picture():
@@ -66,6 +72,7 @@ def take_picture():
     latest_image = max(list_of_files, key=os.path.getctime)
     return send_file(latest_image, mimetype='image/jpeg')
 
+# for retrieval of last video stored
 @app.route('/take_video')
 @login_required
 def take_video():
@@ -76,18 +83,20 @@ def take_video():
     latest_video = max(list_of_files, key=os.path.getctime)
     return send_file(latest_video, mimetype='video/mpeg')  # Corrected MIME type for MPG
 
+# for turning off the system
 @app.route('/turn_off', methods=['POST'])
 @login_required
 def turn_off():
     os.system("sudo supervisorctl stop driver")
     return redirect(url_for('main'))
 
+# for restarting the system
 @app.route('/restart', methods=['POST'])
 @login_required
 def restart():
     os.system("sudo supervisorctl restart driver")
     return redirect(url_for('main'))
 
-
+# run program for website
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

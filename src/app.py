@@ -5,6 +5,7 @@ import time
 import glob
 from general_functionalities import capture_image, capture_video
 
+# initial setup
 app = Flask(__name__)
 app.secret_key = 'very_secret_key_here'
 

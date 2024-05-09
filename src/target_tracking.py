@@ -1,6 +1,7 @@
 import cv2
 import os
 
+# HAAR algorithm detector
 detector = cv2.CascadeClassifier("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
 
 # detect target with HAAR algorithm

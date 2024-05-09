@@ -1,7 +1,7 @@
 # Surveillance System
 
 ## Hardware and Software Requirements
-Hardware Requirements: 1 Raspberry Pi 4 Board, 2 Raspberry Pi Cameras Module v2, 1 Arducam Multi Camera Adapter Module V2.2, 1 USB Flash Drive, Keyboard and Mouse, SD Card, 3 LEDs, 1 buzzer, 1 button, cables, and wires.
+Hardware Requirements: 1 Raspberry Pi 4 Board, 2 Raspberry Pi Cameras Module v2, 1 Arducam Multi Camera Adapter Module V2.2, 1 USB Flash Drive, 1 Keyboard, 1 Mouse, 1 SD Card, at least 1 LED, 1 buzzer, 1 button, 1 monitor, cables, and wires.
 
 Software Requirements: Raspberry Pi Imager, OpenCV, Picamera2, and Flask.
 
@@ -14,7 +14,7 @@ Insert the SD card into the Micro SD Card slot in the Raspberry Pi board, then p
 
 ![System Setup](https://github.com/anhtu-pham/Surveillance-System/blob/main/assets/system_setup.jpg)
 
-Use the HDMI cable to connect to the monitor, connect the mouse and keyboard to the Raspberry Pi board, power up the Raspberry Pi board, then turn on the monitor.
+Connect the Raspberry Pi board to the monitor, the mouse, and the keyboard, power up the Raspberry Pi board, then turn on the monitor.
 
 All images and videos that the system would store will be in corresponding directories in the /media/ecse488-7/group7 directory for the USB Flash Drive. With the monitor's user interface, create this directory, then inside this directory, create /images and /videos directories to store images and videos respectively.
 

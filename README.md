@@ -1,7 +1,7 @@
 # Surveillance System
 
 ## Hardware and Software Requirements
-Hardware Requirements: 1 Raspberry Pi 4 Board, 2 Raspberry Pi Cameras Module v2, 1 Arducam Multi Camera Adapter Module V2.2, 1 USB Flash Drive, 1 monitor, 1 Keyboard, 1 Mouse, 1 SD Card, at least 1 LED, 1 buzzer, 1 button, cables, and wires.
+Hardware Requirements: 1 Raspberry Pi 4 Board, 2 Raspberry Pi Cameras Module v2, 1 Arducam Multi Camera Adapter Module V2.2, 1 USB Flash Drive, 1 Monitor, 1 Keyboard, 1 Mouse, 1 SD Card, at least 1 LED, 1 Buzzer, 1 Button, Cables, and Wires.
 
 Software Requirements: Raspberry Pi Imager, OpenCV, Picamera2, and Flask.
 

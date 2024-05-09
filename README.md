@@ -1,7 +1,7 @@
 # Surveillance System
 
 ## Hardware and Software Requirements
-Hardware Requirements: 1 Raspberry Pi 4 Board, 2 Raspberry Pi Cameras Module v2, 1 Arducam Multi Camera Adapter Module V2.2, 1 USB Flash Drive, Keyboard and Mouse, SD Card, 3 LEDs and 1 buzzer, button, cables, and wires.
+Hardware Requirements: 1 Raspberry Pi 4 Board, 2 Raspberry Pi Cameras Module v2, 1 Arducam Multi Camera Adapter Module V2.2, 1 USB Flash Drive, Keyboard and Mouse, SD Card, 3 LEDs, 1 buzzer, 1 button, cables, and wires.
 
 Software Requirements: Raspberry Pi Imager, OpenCV, Picamera2, and Flask.
 
@@ -23,10 +23,10 @@ On the first terminal, change directory into src, then execute the following com
 ```
 sudo python3 driver.py
 ```
-In the state with the highest level of security, the system would activate alarm with the LEDs and the buzzer. Reset the system and turn off the alarm by firm reset press on the button.
+In the state with the highest level of security, the system would activate alarm with the LEDs and the buzzer. In this state, reset the system and turn off the alarm by firm reset press on the button.
 
 Turn on the Wi-Fi connection, then on the second terminal, change directory into src, then execute the following command to run the website:
 ```
 python3 app.py
 ```
-Open the browser and use the link displayed in the messages on the second terminal to open the website.
+Open the browser and use the link displayed in the message on the second terminal to open the website.
